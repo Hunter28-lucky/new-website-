@@ -6,6 +6,10 @@
     <title>Red Dragon Gym - Premium Fitness Center</title>
     <meta name="description" content="Welcome to Red Dragon Gym - A premium fitness center with expert trainers, state-of-the-art equipment, and personalized fitness programs for all levels.">
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="reddragongym.png">
+    <link rel="apple-touch-icon" href="reddragongym.png">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -145,6 +149,22 @@
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
+      }
+
+      /* Professional animated gradient for navbar text */
+      .gradient-text {
+        background: linear-gradient(90deg, #00e1ff, #ff0033, #00e1ff 80%);
+        background-size: 200% 200%;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        animation: gradient-shimmer 6s ease-in-out infinite;
+      }
+      @keyframes gradient-shimmer {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
       }
 
       .nav-link {
@@ -298,34 +318,140 @@
           padding: 0.5rem;
           z-index: 50;
       }
+
+      /* Splash screen logo animation */
+      @keyframes splash-logo {
+        0% { opacity: 0; transform: scale(0.7) rotate(-10deg); }
+        60% { opacity: 1; transform: scale(1.1) rotate(5deg); }
+        100% { opacity: 1; transform: scale(1) rotate(0deg); }
+      }
+      .animate-splash-logo {
+        animation: splash-logo 1.2s cubic-bezier(0.7,0.2,0.2,1.1) forwards;
+      }
+
+      /* Splash screen text animation */
+      @keyframes splash-text {
+        0% { opacity: 0; letter-spacing: 0.2em; }
+        60% { opacity: 1; letter-spacing: 0.1em; }
+        100% { opacity: 1; letter-spacing: 0.05em; }
+      }
+      .splash-gradient-text {
+        background: linear-gradient(90deg, #ff0033, #00e1ff, #ff0033 80%);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradient-move 2.5s linear infinite, splash-text 1.2s 0.5s both;
+      }
+      .animate-splash-text {
+        animation: splash-text 1.2s 0.5s both;
+      }
+
+      /* Hide scroll during splash */
+      body.splash-active {
+        overflow: hidden;
+      }
+
+      /* Splash fade-in/out for logo and text */
+      @keyframes splash-fade-in {
+        0% { opacity: 0; transform: scale(0.98); }
+        100% { opacity: 1; transform: scale(1); }
+      }
+      @keyframes splash-fade-out {
+        0% { opacity: 1; transform: scale(1); }
+        100% { opacity: 0; transform: scale(1.01); }
+      }
+      .splash-fade {
+        opacity: 0;
+        animation: splash-fade-in 1.1s cubic-bezier(0.4,0,0.2,1) 0.1s forwards;
+      }
+      #splash-screen.splash-fade-out .splash-fade {
+        animation: splash-fade-out 1.4s cubic-bezier(0.4,0,0.2,1) forwards;
+      }
+      .splash-gradient-text {
+        background: linear-gradient(90deg, #ff0033, #00e1ff, #ff0033 80%);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradient-shimmer 6s ease-in-out infinite;
+      }
+      body.splash-active {
+        overflow: hidden;
+      }
+
+      /* Fade and scale in main content after splash */
+      body:not(.splash-active) main, body:not(.splash-active) header {
+        opacity: 1;
+        transform: scale(1);
+        transition: opacity 1.4s cubic-bezier(0.4,0,0.2,1), transform 1.4s cubic-bezier(0.4,0,0.2,1);
+      }
+      body.splash-active main, body.splash-active header {
+        opacity: 0;
+        transform: scale(0.98);
+      }
+
+      /* Splash Screen Overlay */
+      @media (max-width: 640px) {
+        #splash-screen .splash-logo-group span {
+          font-size: 1.4rem !important;
+          text-align: center;
+          max-width: 90vw;
+          line-height: 1.2;
+        }
+        #splash-screen .splash-logo-group img {
+          width: 70px !important;
+          height: 70px !important;
+        }
+      }
+      #splash-screen {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-direction: column !important;
+        text-align: center;
+      }
+      #splash-screen .splash-logo-group {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100vw;
+        text-align: center;
+      }
     </style>
+    <div id="splash-screen" style="position:fixed;z-index:9999;left:0;top:0;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;background:#181924;transition:opacity 1.1s cubic-bezier(.4,0,.2,1),visibility 1.1s cubic-bezier(.4,0,.2,1);opacity:1;visibility:visible;overflow:hidden;pointer-events:auto;">
+      <div class="splash-logo-group" style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;opacity:0;transform:scale(0.92);transition:opacity 1.1s cubic-bezier(.4,0,.2,1),transform 1.1s cubic-bezier(.4,0,.2,1);">
+        <img src="reddragongym.png" alt="Red Dragon Gym Logo" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 0 16px #00e1ff44);" />
+        <span style="font-family:'Oswald',sans-serif;font-size:2.5rem;font-weight:700;letter-spacing:0.12em;background:linear-gradient(90deg,#00e1ff 0%,#ff0033 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-fill-color:transparent;text-shadow:0 2px 24px #00e1ff22,0 1px 0 #000;">RED DRAGON GYM</span>
+      </div>
+    </div>
 </head>
 <body>
     <!-- Header with Glass Effect -->
-    <header id="header" class="fixed top-0 w-full z-50 transition-all duration-300 glass-card bg-opacity-90 backdrop-blur-md py-4">
-        <nav class="container mx-auto px-4 sm:px-6 flex justify-between items-center relative">
-            <a href="#" class="text-3xl font-heading gradient-text flex items-center group transition-all duration-300 hover:scale-105">
-                <i class="fas fa-dragon mr-2 text-[var(--neon-red)] group-hover:text-[var(--neon-blue)] transition-colors duration-300"></i>
-                <span>RED DRAGON GYM</span>
+    <header id="header" class="fixed top-0 w-full z-50 transition-all duration-300 glass-card bg-opacity-90 backdrop-blur-md py-3">
+        <nav class="container mx-auto px-4 sm:px-6 flex flex-row justify-between items-center relative min-h-[64px]">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 h-12">
+                <img src="reddragongym.png" alt="Red Dragon Gym Logo" class="w-10 h-10 object-contain align-middle" style="filter:drop-shadow(0 0 8px #00e1ff44);" />
+                <span class="font-heading font-bold text-2xl gradient-text tracking-widest align-middle" style="font-family:'Oswald',sans-serif;letter-spacing:0.12em;line-height:1;">RED DRAGON GYM</span>
             </a>
 
             <!-- Desktop Navigation -->
-            <div class="desktop-nav hidden lg:flex space-x-8 items-center">
-                <div class="flex space-x-8 fade-in">
-                    <a href="#home" class="nav-link text-lg">Home</a>
-                    <a href="#about" class="nav-link text-lg">About</a>
-                    <a href="#trainers" class="nav-link text-lg">Trainers</a>
-                    <a href="#facilities" class="nav-link text-lg">Facilities</a>
-                    <a href="#services" class="nav-link text-lg">Services</a>
-                    <a href="#membership" class="nav-link text-lg">Membership</a>
-                    <a href="#gallery" class="nav-link text-lg">Gallery</a>
-                    <a href="#contact" class="modern-btn">Join Now</a>
+            <div class="desktop-nav hidden lg:flex space-x-8 items-center h-12">
+                <div class="flex space-x-8 fade-in items-center h-12">
+                    <a href="#home" class="nav-link text-lg flex items-center h-12">Home</a>
+                    <a href="#about" class="nav-link text-lg flex items-center h-12">About</a>
+                    <a href="#trainers" class="nav-link text-lg flex items-center h-12">Trainers</a>
+                    <a href="#facilities" class="nav-link text-lg flex items-center h-12">Facilities</a>
+                    <a href="#services" class="nav-link text-lg flex items-center h-12">Services</a>
+                    <a href="#membership" class="nav-link text-lg flex items-center h-12">Membership</a>
+                    <a href="#gallery" class="nav-link text-lg flex items-center h-12">Gallery</a>
+                    <a href="#contact" class="modern-btn flex items-center h-10 px-6 py-2 ml-2" style="margin-bottom:0;">Join Now</a>
                 </div>
             </div>
 
             <!-- Hamburger Icon (Mobile) -->
-            <button id="mobile-menu-button" class="lg:hidden text-gray-300 focus:outline-none p-2 hover:text-[var(--neon-blue)] rounded-md transition-colors duration-300">
-                <i id="menu-icon" class="fas fa-bars text-2xl"></i>
+            <button id="mobile-menu-button" class="lg:hidden text-gray-300 focus:outline-none p-2 hover:text-[var(--neon-blue)] rounded-md transition-colors duration-300 h-12 flex items-center">
+              <i id="menu-icon" class="fas fa-bars text-2xl"></i>
             </button>
         </nav>
 
@@ -846,7 +972,7 @@
                         <div class="relative z-10">
                             <h3 class="text-2xl font-heading text-white mb-2">Elite</h3>
                             <div class="flex items-baseline mb-6">
-                                <span class="text-4xl font-bold text-[var(--neon-blue)]">₹2000</span>
+                                <span class="text-4xl font-bold text-[var(--neon-blue)]">₹1800</span>
                                 <span class="text-gray-400 ml-2">/month</span>
                             </div>
                             <ul class="space-y-4 mb-8">
@@ -856,19 +982,19 @@
                                 </li>
                                 <li class="flex items-center text-gray-300">
                                     <i class="fas fa-check-circle text-[var(--neon-blue)] mr-3"></i>
-                                    Unlimited PT Sessions
+                                    Unlimited Personal Training
                                 </li>
                                 <li class="flex items-center text-gray-300">
                                     <i class="fas fa-check-circle text-[var(--neon-blue)] mr-3"></i>
-                                    VIP Locker Room
+                                    Customized Nutrition Plan
                                 </li>
                                 <li class="flex items-center text-gray-300">
                                     <i class="fas fa-check-circle text-[var(--neon-blue)] mr-3"></i>
-                                    Recovery Services
+                                    Access to Exclusive Events
                                 </li>
                                 <li class="flex items-center text-gray-300">
                                     <i class="fas fa-check-circle text-[var(--neon-blue)] mr-3"></i>
-                                    Guest Privileges
+                                    Priority Support
                                 </li>
                             </ul>
                             <a href="#contact" class="modern-btn w-full text-center">Get Elite Access</a>
@@ -1194,18 +1320,17 @@
                                            class="w-full bg-[rgba(0,225,255,0.05)] border border-[var(--glass-border)] rounded-lg py-3 px-4 text-white focus:outline-none focus:border-[var(--neon-blue)] transition-all duration-300"
                                            placeholder="John Doe">
                                     <div class="absolute inset-0 rounded-lg opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                                </div>
+                                                               </div>
                             </div>
 
                             <!-- Email Input -->
                             <div>
                                 <label for="email" class="block text-lg text-gray-300 mb-2">Your Email</label>
-                                <div class="relative">
+                                                               <div class="relative">
                                     <input type="email" id="email" 
                                            class="w-full bg-[rgba(255,0,51,0.05)] border border-[var(--glass-border)] rounded-lg py-3 px-4 text-white focus:outline-none focus:border-[var(--neon-red)] transition-all duration-300"
                                            placeholder="john@example.com">
-                                </div>
-                            </div>
+                                </div                            </div>
 
                             <!-- Subject Input -->
                             <div>
@@ -1379,6 +1504,50 @@
         setTimeout(() => {
           document.getElementById('header').classList.remove('navbar-fade');
         }, 800);
+      });
+
+      // Splash screen logic (even smoother, more professional)
+      window.addEventListener('DOMContentLoaded', function() {
+        document.body.classList.add('splash-active');
+        const splash = document.getElementById('splash-screen');
+        const group = splash.querySelector('.splash-logo-group');
+        setTimeout(function() {
+            group.style.opacity = '1';
+            group.style.transform = 'scale(1)';
+        }, 100); // fade/scale in
+        setTimeout(function() {
+            group.style.opacity = '0';
+            group.style.transform = 'scale(0.96)';
+        }, 1850); // fade/scale out together
+        setTimeout(function() {
+            splash.style.opacity = '0'; // fade out overlay softly
+            document.body.classList.remove('splash-active');
+            // Fix: Remove pointer events so nav is clickable immediately after splash
+            splash.style.pointerEvents = 'none';
+            setTimeout(function() {
+                splash.style.display = 'none';
+            }, 1100); // match overlay fade-out duration
+        }, 2600);
+      });
+
+      // Smooth scroll to top
+      const backToTopButton = document.getElementById('back-to-top');
+      backToTopButton.addEventListener('click', function () {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+
+      // Show/hide back to top button
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 300) {
+          backToTopButton.classList.remove('opacity-0', 'invisible');
+          backToTopButton.classList.add('opacity-100', 'visible');
+        } else {
+          backToTopButton.classList.remove('opacity-100', 'visible');
+          backToTopButton.classList.add('opacity-0', 'invisible');
+        }
       });
     </script>
     <!-- AOS.js for scroll animations -->
